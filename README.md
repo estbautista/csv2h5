@@ -22,7 +22,7 @@ Optional parameters allow to simulate an evolving setting, where new data arrive
 * **IDs**: vector that stores the ID for each datapoint (useful in evolving settings)
 * **Prediction**: vector in which predictions by Machine Learning algorithms can be stored
 ** **
-## Instalation 
-The code depends on the **HDF5 Library and the C++ API**. You can install it from: https://www.hdfgroup.org/downloads/hdf5/source-code/
+## Installation 
+The code depends on the **HDF5 Library and the C++ API**. You can install it from [here](https://www.hdfgroup.org/downloads/hdf5/source-code/).
 
 Then, to compile the code, change, in the makefile, the library and include paths of the HDF5 library to match your installation. Then, simply run the make command in the command line.
