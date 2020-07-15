@@ -102,6 +102,9 @@ void initializeH5(H5Properties *ptr_h5, csvProperties *ptr_csv){
 
 	// Setup the features as attributes
 	writeFeatures(&file, ptr_csv);
+	writeTimestamps(&file, ptr_h5->numSnapshots);
+	writeNodes(&file, ptr_csv);
+	writeNumFeatures(&file, ptr_csv);
 
 	// Create one group per time stamp and initialize datasets
 	for(int i = 0; i < ptr_h5->numSnapshots; i++){
@@ -264,5 +267,39 @@ void writeFeatures(H5::H5File *h5File, csvProperties *ptr_csv){
 	// Write features as an attribute in the root group
         H5::Attribute attribute = h5File->createAttribute("FeaturesNames", varLenStrType, dsSpace);
         attribute.write(varLenStrType, vectCarrays.data());
+}
+
+void writeTimestamps(H5::H5File *h5File, unsigned long numTimestamps){
+	// Set dataspace
+	hsize_t dataDims[1] = {1};
+        H5::DataSpace dsSpace(1, dataDims);
+
+	// Write features as an attribute in the root group
+        H5::Attribute attribute = h5File->createAttribute("NumberTimestamps", H5::PredType::NATIVE_ULONG, dsSpace);
+        attribute.write(H5::PredType::NATIVE_ULONG, &numTimestamps);
+}
+
+void writeNodes(H5::H5File *h5File, csvProperties *ptr_csv){
+	unsigned long numLines[1]={ptr_csv->numLines};
+
+	// Set dataspace
+	hsize_t dataDims[1] = {1};
+        H5::DataSpace dsSpace(1, dataDims);
+
+	// Write features as an attribute in the root group
+        H5::Attribute attribute = h5File->createAttribute("NumberNodes", H5::PredType::NATIVE_ULONG, dsSpace);
+        attribute.write(H5::PredType::NATIVE_ULONG, &numLines[0]);
+}
+
+void writeNumFeatures(H5::H5File *h5File, csvProperties *ptr_csv){
+	unsigned long numFeatures[1]={ptr_csv->numFeatures};
+
+	// Set dataspace
+	hsize_t dataDims[1] = {1};
+        H5::DataSpace dsSpace(1, dataDims);
+
+	// Write features as an attribute in the root group
+        H5::Attribute attribute = h5File->createAttribute("NumberFeatures", H5::PredType::NATIVE_ULONG, dsSpace);
+        attribute.write(H5::PredType::NATIVE_ULONG, &numFeatures[0]);
 }
 

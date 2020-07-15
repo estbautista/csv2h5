@@ -39,3 +39,7 @@ void 	parseLine(pointProperties *, csvProperties *);
 void 	getDataPlacement(pointProperties *, H5Properties *);
 void 	writeData(H5::H5File *, std::string, pointProperties *);
 void 	writeFeatures(H5::H5File *, csvProperties *);
+void	writeTimestamps(H5::H5File *, unsigned long);
+void	writeNodes(H5::H5File *, csvProperties *);
+void	writeNumFeatures(H5::H5File *, csvProperties *);
+
